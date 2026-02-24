@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>B&A — Digital Marketing</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #0a0a0a;
+      --white: #ffffff;
+      --gray: #f5f5f5;
+      --gray2: #e0e0e0;
+      --accent: #6c47ff;
+      --accent2: #ff6b35;
+      --text: #1a1a1a;
+      --muted: #888;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--white);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* LANG SWITCHER */
+    .lang-bar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      background: var(--black);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 40px;
+      height: 48px;
+    }
+    .lang-logo {
+      font-size: 18px;
+      font-weight: 900;
+      color: var(--white);
+      letter-spacing: 2px;
+    }
+    .lang-logo span { color: var(--accent); }
+    .lang-btns { display: flex; gap: 8px; }
+    .lang-btn {
+      background: transparent;
+      border: 1px solid #444;
+      color: #aaa;
+      padding: 4px 12px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 12px;
+      font-family: 'Inter', sans-serif;
+      transition: all 0.2s;
+    }
+    .lang-btn.active, .lang-btn:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: white;
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      background: var(--black);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 100px 20px 60px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(108,71,255,0.15) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      background: rgba(108,71,255,0.15);
+      border: 1px solid rgba(108,71,255,0.3);
+      color: #a78bfa;
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-size: 13px;
+      margin-bottom: 28px;
+      display: inline-block;
+    }
+    .hero h1 {
+      font-size: clamp(42px, 8vw, 96px);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.05;
+      margin-bottom: 24px;
+      letter-spacing: -2px;
+    }
+    .hero h1 span { color: var(--accent); }
+    .hero p {
+      font-size: clamp(16px, 2vw, 20px);
+      color: #aaa;
+      max-width: 560px;
+      margin-bottom: 40px;
+    }
+    .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+    .btn-primary {
+      background: var(--accent);
+      color: white;
+      padding: 14px 32px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+      transition: all 0.2s;
+      border: none; cursor: pointer;
+    }
+    .btn-primary:hover { background: #5535d4; transform: translateY(-2px); }
+    .btn-outline {
+      background: transparent;
+      color: white;
+      padding: 14px 32px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+      border: 1px solid #444;
+      transition: all 0.2s;
+    }
+    .btn-outline:hover { border-color: #888; transform: translateY(-2px); }
+
+    /* STATS */
+    .stats {
+      background: var(--black);
+      border-top: 1px solid #1a1a1a;
+      padding: 40px 20px;
+      display: flex;
+      justify-content: center;
+      gap: 60px;
+      flex-wrap: wrap;
+    }
+    .stat { text-align: center; }
+    .stat-num {
+      font-size: 36px;
+      font-weight: 900;
+      color: white;
+    }
+    .stat-num span { color: var(--accent); }
+    .stat-label { font-size: 13px; color: #666; margin-top: 4px; }
+
+    /* SECTION */
+    section { padding: 100px 20px; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    .section-label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: clamp(32px, 5vw, 56px);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+    .section-sub {
+      font-size: 17px;
+      color: var(--muted);
+      max-width: 560px;
+      margin-bottom: 60px;
+    }
+
+    /* SERVICES */
+    .services { background: var(--gray); }
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 24px;
+    }
+    .service-card {
+      background: white;
+      border-radius: 20px;
+      padding: 36px;
+      border: 1px solid var(--gray2);
+      transition: all 0.3s;
+    }
+    .service-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+      border-color: var(--accent);
+    }
+    .service-icon {
+      font-size: 36px;
+      margin-bottom: 20px;
+    }
+    .service-card h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .service-card p { font-size: 15px; color: var(--muted); line-height: 1.7; }
+
+    /* PROCESS */
+    .process-steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 0;
+      position: relative;
+    }
+    .process-step {
+      text-align: center;
+      padding: 30px 20px;
+      position: relative;
+    }
+    .step-num {
+      width: 56px; height: 56px;
+      background: var(--accent);
+      color: white;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      font-weight: 900;
+      margin: 0 auto 16px;
+    }
+    .process-step h4 {
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .process-step p { font-size: 13px; color: var(--muted); }
+
+    /* PORTFOLIO */
+    .portfolio { background: var(--black); color: white; }
+    .portfolio .section-title { color: white; }
+    .portfolio .section-sub { color: #666; }
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 24px;
+    }
+    .portfolio-card {
+      background: #111;
+      border: 1px solid #222;
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all 0.3s;
+    }
+    .portfolio-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+    }
+    .portfolio-thumb {
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 60px;
+      font-weight: 900;
+      letter-spacing: -2px;
+    }
+    .portfolio-body { padding: 24px; }
+    .portfolio-tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .portfolio-body h3 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: white;
+    }
+    .portfolio-body p { font-size: 14px; color: #666; margin-bottom: 16px; }
+    .portfolio-results {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .result-badge {
+      background: rgba(108,71,255,0.1);
+      border: 1px solid rgba(108,71,255,0.2);
+      color: #a78bfa;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 600;
+    }
+    .concept-label {
+      display: inline-block;
+      background: rgba(255,107,53,0.1);
+      border: 1px solid rgba(255,107,53,0.2);
+      color: var(--accent2);
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    /* PRICING */
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      align-items: start;
+    }
+    .pricing-card {
+      border: 1px solid var(--gray2);
+      border-radius: 24px;
+      padding: 40px 36px;
+      position: relative;
+      transition: all 0.3s;
+    }
+    .pricing-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+    }
+    .pricing-card.featured {
+      background: var(--black);
+      border-color: var(--accent);
+      color: white;
+    }
+    .pricing-badge {
+      position: absolute;
+      top: -14px; left: 50%;
+      transform: translateX(-50%);
+      background: var(--accent);
+      color: white;
+      padding: 4px 16px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .pricing-name {
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+    .pricing-price {
+      font-size: 52px;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .pricing-card.featured .pricing-price { color: white; }
+    .pricing-period { font-size: 14px; color: var(--muted); margin-bottom: 24px; }
+    .pricing-card.featured .pricing-period { color: #666; }
+    .pricing-features { list-style: none; margin-bottom: 32px; }
+    .pricing-features li {
+      padding: 8px 0;
+      font-size: 14px;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      border-bottom: 1px solid var(--gray2);
+    }
+    .pricing-card.featured .pricing-features li { border-color: #222; color: #ccc; }
+    .pricing-features li:last-child { border: none; }
+    .pricing-features li::before {
+      content: '✓';
+      color: var(--accent);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .discount-note {
+      background: rgba(255,107,53,0.08);
+      border: 1px solid rgba(255,107,53,0.2);
+      border-radius: 12px;
+      padding: 12px 16px;
+      font-size: 13px;
+      color: var(--accent2);
+      margin-bottom: 20px;
+    }
+    .pricing-card.featured .btn-primary { background: var(--accent); }
+
+    /* CTA */
+    .cta {
+      background: var(--accent);
+      color: white;
+      text-align: center;
+    }
+    .cta .section-title { color: white; }
+    .cta p { color: rgba(255,255,255,0.8); font-size: 18px; margin-bottom: 36px; }
+    .cta .btn-primary { background: white; color: var(--accent); }
+    .cta .btn-primary:hover { background: #f0f0f0; }
+
+    /* FOOTER */
+    footer {
+      background: var(--black);
+      color: #666;
+      text-align: center;
+      padding: 40px 20px;
+      font-size: 14px;
+    }
+    footer strong { color: white; }
+
+    /* LANG HIDE */
+    [data-lang] { display: none; }
+    .lang-ru [data-lang="ru"] { display: block; }
+    .lang-ru [data-lang="ru"].inline { display: inline; }
+    .lang-uz [data-lang="uz"] { display: block; }
+    .lang-uz [data-lang="uz"].inline { display: inline; }
+
+    @media (max-width: 600px) {
+      .lang-bar { padding: 0 20px; }
+      section { padding: 70px 20px; }
+      .stats { gap: 30px; }
+      .process-steps { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body class="lang-ru">
+
+<!-- LANG BAR -->
+<div class="lang-bar">
+  <div class="lang-logo">B<span>&</span>A</div>
+  <div class="lang-btns">
+    <button class="lang-btn active" onclick="setLang('ru')">RU</button>
+    <button class="lang-btn" onclick="setLang('uz')">UZ</button>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div data-lang="ru">
+    <div class="hero-badge">Digital Marketing · SMM · Таргет · Сайты</div>
+    <h1>Больше клиентов.<br><span>Больше продаж.</span></h1>
+    <p>Мы продвигаем бизнес в социальных сетях — от стратегии до результата. Профессиональный контент, таргетированная реклама и полное управление аккаунтом.</p>
+    <div class="hero-btns">
+      <a href="#pricing" class="btn-primary">Смотреть цены</a>
+      <a href="#contact" class="btn-outline">Связаться с нами</a>
+    </div>
+  </div>
+  <div data-lang="uz">
+    <div class="hero-badge">Digital Marketing · SMM · Target · Saytlar</div>
+    <h1>Ko'proq mijozlar.<br><span>Ko'proq savdo.</span></h1>
+    <p>Biz ijtimoiy tarmoqlarda biznesni rivojlantiramiz — strategiyadan natijagacha. Professional kontent, targetli reklama va akkauntni to'liq boshqarish.</p>
+    <div class="hero-btns">
+      <a href="#pricing" class="btn-primary">Narxlarni ko'rish</a>
+      <a href="#contact" class="btn-outline">Biz bilan bog'laning</a>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-num">15<span>+</span></div>
+    <div class="stat-label" data-lang="ru">Проектов выполнено</div>
+    <div class="stat-label" data-lang="uz">Bajarilgan loyihalar</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">3<span>x</span></div>
+    <div class="stat-label" data-lang="ru">Средний рост охватов</div>
+    <div class="stat-label" data-lang="uz">O'rtacha qamrov o'sishi</div>
+  </div>
+  <div class="stat">
+    <div class="stat-num">100<span>%</span></div>
+    <div class="stat-label" data-lang="ru">Индивидуальный подход</div>
+    <div class="stat-label" data-lang="uz">Individual yondashuv</div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="services">
+  <div class="container">
+    <div data-lang="ru">
+      <div class="section-label">Что мы делаем</div>
+      <h2 class="section-title">Наши услуги</h2>
+      <p class="section-sub">Полный спектр digital-маркетинга для вашего бизнеса.</p>
+    </div>
+    <div data-lang="uz">
+      <div class="section-label">Nima qilamiz</div>
+      <h2 class="section-title">Xizmatlarimiz</h2>
+      <p class="section-sub">Biznesingiz uchun to'liq digital-marketing xizmatlari.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">📱</div>
+        <h3 data-lang="ru">Ведение Instagram</h3>
+        <h3 data-lang="uz">Instagram boshqaruvi</h3>
+        <p data-lang="ru">Полное управление аккаунтом — контент, stories, reels, общение с подписчиками. Вы занимаетесь бизнесом, мы — соцсетями.</p>
+        <p data-lang="uz">Akkauntni to'liq boshqarish — kontent, stories, reels, obunachilар bilan muloqot. Siz biznes bilan shug'ulaning, biz ijtimoiy tarmoqlar bilan.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📸</div>
+        <h3 data-lang="ru">Профессиональная съёмка</h3>
+        <h3 data-lang="uz">Professional suratga olish</h3>
+        <p data-lang="ru">Съёмочный день на профессиональную камеру — фото и видео контент, который выделяет вас среди конкурентов.</p>
+        <p data-lang="uz">Professional kamera bilan suratga olish kuni — raqobatchilardan ajralib turadigan foto va video kontent.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🎯</div>
+        <h3 data-lang="ru">Таргетированная реклама</h3>
+        <h3 data-lang="uz">Targetli reklama</h3>
+        <p data-lang="ru">Настройка и ведение рекламы в Instagram — показываем ваш продукт именно тем, кто готов купить.</p>
+        <p data-lang="uz">Instagram'da reklama sozlash va boshqarish — mahsulotingizni aynan sotib olishga tayyor odamlarga ko'rsatamiz.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🌐</div>
+        <h3 data-lang="ru">Создание сайта</h3>
+        <h3 data-lang="uz">Sayt yaratish</h3>
+        <p data-lang="ru">Лендинги и сайты-визитки — быстро, красиво, с формой заявки. Клиенты найдут вас в Google.</p>
+        <p data-lang="uz">Landing page va vizit-saytlar — tez, chiroyli, ariza shakli bilan. Mijozlar sizni Google'da topa oladi.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🤖</div>
+        <h3 data-lang="ru">Telegram-бот</h3>
+        <h3 data-lang="uz">Telegram-bot</h3>
+        <p data-lang="ru">Автоматический бот для приёма заявок, каталога товаров и общения с клиентами. Работает 24/7.</p>
+        <p data-lang="uz">Arizalarni qabul qilish, tovarlar katalogi va mijozlar bilan muloqot uchun avtomatik bot. 24/7 ishlaydi.</p>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📊</div>
+        <h3 data-lang="ru">Аналитика и стратегия</h3>
+        <h3 data-lang="uz">Tahlil va strategiya</h3>
+        <p data-lang="ru">Разрабатываем стратегию продвижения под ваш бизнес, отслеживаем результаты и регулярно отчитываемся.</p>
+        <p data-lang="uz">Biznesingiz uchun rivojlantirish strategiyasini ishlab chiqamiz, natijalarni kuzatamiz va muntazam hisobot beramiz.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section id="process">
+  <div class="container">
+    <div data-lang="ru">
+      <div class="section-label">Как мы работаем</div>
+      <h2 class="section-title">Этапы работы</h2>
+      <p class="section-sub">Прозрачный процесс от первой встречи до результата.</p>
+    </div>
+    <div data-lang="uz">
+      <div class="section-label">Qanday ishlaymiz</div>
+      <h2 class="section-title">Ish bosqichlari</h2>
+      <p class="section-sub">Birinchi uchrashuvdan natijagacha shaffof jarayon.</p>
+    </div>
+    <div class="process-steps">
+      <div class="process-step">
+        <div class="step-num">1</div>
+        <h4 data-lang="ru">Консультация</h4>
+        <h4 data-lang="uz">Konsultatsiya</h4>
+        <p data-lang="ru">Знакомимся, разбираем бизнес, выясняем цели</p>
+        <p data-lang="uz">Tanishamiz, biznesni tahlil qilamiz, maqsadlarni aniqlaymiz</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">2</div>
+        <h4 data-lang="ru">Анализ</h4>
+        <h4 data-lang="uz">Tahlil</h4>
+        <p data-lang="ru">Изучаем продукт, аудиторию и конкурентов</p>
+        <p data-lang="uz">Mahsulot, auditoriya va raqobatchilarni o'rganamiz</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">3</div>
+        <h4 data-lang="ru">Стратегия</h4>
+        <h4 data-lang="uz">Strategiya</h4>
+        <p data-lang="ru">Формируем план по контенту, каналам и тактикам</p>
+        <p data-lang="uz">Kontent, kanallar va taktikalar bo'yicha reja tuzamiz</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">4</div>
+        <h4 data-lang="ru">Реализация</h4>
+        <h4 data-lang="uz">Amalga oshirish</h4>
+        <p data-lang="ru">Съёмка, контент, ведение, реклама</p>
+        <p data-lang="uz">Suratga olish, kontent, boshqaruv, reklama</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">5</div>
+        <h4 data-lang="ru">Аналитика</h4>
+        <h4 data-lang="uz">Analitika</h4>
+        <p data-lang="ru">Отслеживаем показатели, делаем отчёт</p>
+        <p data-lang="uz">Ko'rsatkichlarni kuzatamiz, hisobot qilamiz</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">6</div>
+        <h4 data-lang="ru">Рост</h4>
+        <h4 data-lang="uz">O'sish</h4>
+        <p data-lang="ru">Оптимизируем, масштабируем, улучшаем</p>
+        <p data-lang="uz">Optimallashtirамiz, kengaytiramiz, yaxshilaymiz</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PORTFOLIO -->
+<section class="portfolio" id="portfolio">
+  <div class="container">
+    <div data-lang="ru">
+      <div class="section-label">Наши работы</div>
+      <h2 class="section-title">Примеры проектов</h2>
+      <p class="section-sub">Концепции и направления, в которых мы работаем.</p>
+    </div>
+    <div data-lang="uz">
+      <div class="section-label">Ishlarimiz</div>
+      <h2 class="section-title">Loyiha namunalari</h2>
+      <p class="section-sub">Biz ishlaydigan kontseptsiyalar va yo'nalishlar.</p>
+    </div>
+    <div class="portfolio-grid">
+      <div class="portfolio-card">
+        <div class="portfolio-thumb" style="background: linear-gradient(135deg, #1a1a2e, #16213e);">🚪</div>
+        <div class="portfolio-body">
+          <div class="concept-label">Concept</div>
+          <div class="portfolio-tag">Двери · Мебель</div>
+          <h3 data-lang="ru">Магазин дверей</h3>
+          <h3 data-lang="uz">Eshik do'koni</h3>
+          <p data-lang="ru">Instagram-стратегия для продаж межкомнатных и входных дверей. Контент, таргет, рост заявок.</p>
+          <p data-lang="uz">Ichki va kirish eshiklarini sotish uchun Instagram-strategiyasi. Kontent, target, arizalar o'sishi.</p>
+          <div class="portfolio-results">
+            <span class="result-badge">+180% охват</span>
+            <span class="result-badge">+65% заявок</span>
+          </div>
+        </div>
+      </div>
+      <div class="portfolio-card">
+        <div class="portfolio-thumb" style="background: linear-gradient(135deg, #0f2027, #203a43);">☕</div>
+        <div class="portfolio-body">
+          <div class="concept-label">Concept</div>
+          <div class="portfolio-tag">HoReCa · Кафе</div>
+          <h3 data-lang="ru">Кофейня</h3>
+          <h3 data-lang="uz">Kofexona</h3>
+          <p data-lang="ru">Визуальная упаковка, контент и таргет для кофейни. Рост посещаемости через соцсети.</p>
+          <p data-lang="uz">Kofexona uchun vizual qadoqlash, kontent va target. Ijtimoiy tarmoqlar orqali tashrif buyuruvchilar o'sishi.</p>
+          <div class="portfolio-results">
+            <span class="result-badge">+220% охват</span>
+            <span class="result-badge">+40% гостей</span>
+          </div>
+        </div>
+      </div>
+      <div class="portfolio-card">
+        <div class="portfolio-thumb" style="background: linear-gradient(135deg, #1a0533, #2d1b69);">👗</div>
+        <div class="portfolio-body">
+          <div class="concept-label">Concept</div>
+          <div class="portfolio-tag">Fashion · Одежда</div>
+          <h3 data-lang="ru">Магазин одежды</h3>
+          <h3 data-lang="uz">Kiyim do'koni</h3>
+          <p data-lang="ru">Reels-стратегия, съёмки и таргет для магазина одежды. Продажи через Instagram.</p>
+          <p data-lang="uz">Kiyim do'koni uchun Reels-strategiyasi, suratga olish va target. Instagram orqali savdo.</p>
+          <div class="portfolio-results">
+            <span class="result-badge">+300% reels</span>
+            <span class="result-badge">+90% продаж</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="container">
+    <div data-lang="ru">
+      <div class="section-label">Прозрачные цены</div>
+      <h2 class="section-title">Тарифы</h2>
+      <p class="section-sub">Первый месяц — по специальной цене. Убедитесь в результате.</p>
+    </div>
+    <div data-lang="uz">
+      <div class="section-label">Shaffof narxlar</div>
+      <h2 class="section-title">Tariflar</h2>
+      <p class="section-sub">Birinchi oy — maxsus narxda. Natijaga ishonch hosil qiling.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="pricing-name">Старт / Start</div>
+        <div class="pricing-price">$200</div>
+        <div class="pricing-period" data-lang="ru">в месяц</div>
+        <div class="pricing-period" data-lang="uz">oyiga</div>
+        <div class="discount-note" data-lang="ru">🎉 Первый месяц всего $150</div>
+        <div class="discount-note" data-lang="uz">🎉 Birinchi oy atigi $150</div>
+        <ul class="pricing-features">
+          <li data-lang="ru">Ведение Instagram</li>
+          <li data-lang="uz">Instagram boshqaruvi</li>
+          <li data-lang="ru">1 съёмочный день</li>
+          <li data-lang="uz">1 suratga olish kuni</li>
+          <li data-lang="ru">12 постов + 8 reels + 20 stories</li>
+          <li data-lang="uz">12 ta post + 8 ta reels + 20 ta stories</li>
+          <li data-lang="ru">Упаковка и оформление аккаунта</li>
+          <li data-lang="uz">Akkauntni rasmiyllashtirish</li>
+          <li data-lang="ru">Базовая реклама</li>
+          <li data-lang="uz">Asosiy reklama</li>
+        </ul>
+        <a href="#contact" class="btn-primary" style="display:block;text-align:center;">
+          <span data-lang="ru">Начать</span>
+          <span data-lang="uz">Boshlash</span>
+        </a>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-badge" data-lang="ru">Популярный</div>
+        <div class="pricing-badge" data-lang="uz">Mashhur</div>
+        <div class="pricing-name">Рост / O'sish</div>
+        <div class="pricing-price">$400</div>
+        <div class="pricing-period" data-lang="ru">в месяц</div>
+        <div class="pricing-period" data-lang="uz">oyiga</div>
+        <div class="discount-note" data-lang="ru">🎉 Первый месяц всего $300</div>
+        <div class="discount-note" data-lang="uz">🎉 Birinchi oy atigi $300</div>
+        <ul class="pricing-features">
+          <li data-lang="ru">Всё из тарифа Старт</li>
+          <li data-lang="uz">Start tarifidagi hamma narsa</li>
+          <li data-lang="ru">Полная таргетированная реклама</li>
+          <li data-lang="uz">To'liq targetli reklama</li>
+          <li data-lang="ru">Комьюнити-менеджмент</li>
+          <li data-lang="uz">Jamiyat menejment</li>
+          <li data-lang="ru">Telegram-бот</li>
+          <li data-lang="uz">Telegram-bot</li>
+          <li data-lang="ru">Ежемесячный отчёт</li>
+          <li data-lang="uz">Oylik hisobot</li>
+        </ul>
+        <a href="#contact" class="btn-primary" style="display:block;text-align:center;">
+          <span data-lang="ru">Начать</span>
+          <span data-lang="uz">Boshlash</span>
+        </a>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-name">Полный / To'liq</div>
+        <div class="pricing-price">$700</div>
+        <div class="pricing-period" data-lang="ru">в месяц</div>
+        <div class="pricing-period" data-lang="uz">oyiga</div>
+        <div class="discount-note" data-lang="ru">🎉 Первый месяц всего $500</div>
+        <div class="discount-note" data-lang="uz">🎉 Birinchi oy atigi $500</div>
+        <ul class="pricing-features">
+          <li data-lang="ru">Всё из тарифа Рост</li>
+          <li data-lang="uz">O'sish tarifidagi hamma narsa</li>
+          <li data-lang="ru">Создание сайта / лендинга</li>
+          <li data-lang="uz">Sayt / landing page yaratish</li>
+          <li data-lang="ru">Несколько соцсетей</li>
+          <li data-lang="uz">Bir nechta ijtimoiy tarmoqlar</li>
+          <li data-lang="ru">Приоритетная поддержка</li>
+          <li data-lang="uz">Ustun qo'llab-quvvatlash</li>
+          <li data-lang="ru">Полная интеграция в бизнес</li>
+          <li data-lang="uz">Biznesga to'liq integratsiya</li>
+        </ul>
+        <a href="#contact" class="btn-primary" style="display:block;text-align:center;">
+          <span data-lang="ru">Начать</span>
+          <span data-lang="uz">Boshlash</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA / CONTACT -->
+<section class="cta" id="contact">
+  <div class="container">
+    <div data-lang="ru">
+      <div class="section-label" style="color:rgba(255,255,255,0.6)">Готовы начать?</div>
+      <h2 class="section-title">Напишите нам</h2>
+      <p>Расскажите о своём бизнесе — мы свяжемся в течение часа и обсудим, что подойдёт именно вам.</p>
+    </div>
+    <div data-lang="uz">
+      <div class="section-label" style="color:rgba(255,255,255,0.6)">Boshlashga tayyormisiz?</div>
+      <h2 class="section-title">Biz bilan bog'laning</h2>
+      <p>Biznesingiz haqida ayting — bir soat ichida bog'lanamiz va aynan sizga nima mos kelishini muhokama qilamiz.</p>
+    </div>
+    <a href="https://t.me/YOUR_TELEGRAM" class="btn-primary" target="_blank">
+      Telegram →
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p><strong>B&A Digital Marketing</strong> · Toshkent, O'zbekiston</p>
+  <p style="margin-top:8px" data-lang="ru">© 2025 B&A. Все права защищены.</p>
+  <p style="margin-top:8px" data-lang="uz">© 2025 B&A. Barcha huquqlar himoyalangan.</p>
+</footer>
+
+<script>
+  function setLang(lang) {
+    document.body.className = 'lang-' + lang;
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.textContent === lang.toUpperCase());
+    });
+  }
+  // Init
+  setLang('ru');
+</script>
+</body>
+</html>
